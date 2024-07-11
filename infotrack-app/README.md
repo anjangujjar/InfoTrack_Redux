@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# User Authentication with Redux Toolkit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Authentication workflow built with the MERN stack & Redux Toolkit. [Project demo here](https://redux-user-auth.netlify.app/)
 
-## Available Scripts
+![Redux Toolkit authentication demo](https://blog.logrocket.com/wp-content/uploads/2022/06/introduction-app-demo.gif)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- User Authentication — Login & Register
+- Protected routes with React Router v6
+- JWT storage with localStorage
+- Automatically fetches user details on page load — Header.js
+- Redux Toolkit's & RTK Query
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Starter files
 
-### `npm test`
+If you're following along with the [blog post](https://blog.logrocket.com/handling-user-authentication-redux-toolkit), clone the `starter-files` branch with the following command:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone --branch starter-files --single-branch https://github.com/Chinwike1/redux-user-auth.git
+```
 
-### `npm run build`
+### ES Modules in Node
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ECMAScript is used on the backend instead of CommonJS. This requires you to add the `.js` extension when importing a file — not package.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## MongoDB Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Follow this guide on "[Getting started with MongoDB Atlas](https://www.mongodb.com/docs/atlas/getting-started/)" to setup your database.
 
-### `npm run eject`
+## Environment Variables
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Environment variables are shown in `.env.example` files.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Install Dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Run this command to install dependencies in both the backend & frontend folders:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+  npm install && cd frontend && npm install
+```
 
-## Learn More
+## Start development server
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+  # Run frontend (:5173) & backend (:5000)
+  npm run dev
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  # Run backend only
+  npm run server
 
-### Code Splitting
+  # Run frontend only
+  npm run client
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Roadmap
 
-### Analyzing the Bundle Size
+- Update the authentication mechanism to use Cookies instead of WebStorage(Local or Session)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## License
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GPL-3.0 — Open source license. Software can be used, copied, modified, e.t.c, free of charge.
