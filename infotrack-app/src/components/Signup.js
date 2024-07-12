@@ -1,9 +1,8 @@
-// components/Signup.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../actions';
-import './Signup.css'; // Import the CSS file
+import './Signup.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +12,7 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
   });
 
   const [locationError, setLocationError] = useState('');
@@ -28,10 +27,10 @@ const Signup = () => {
           setFormData((prevFormData) => ({
             ...prevFormData,
             latitude: position.coords.latitude,
-            longitude: position.coords.longitude
+            longitude: position.coords.longitude,
           }));
         },
-        (error) => {
+        () => {
           setLocationError('Unable to retrieve your location');
         }
       );
@@ -43,7 +42,7 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 

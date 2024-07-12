@@ -1,5 +1,6 @@
 const initialState = {
   isAuthenticated: false,
+  user: JSON.parse(localStorage.getItem('user')) || null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -8,11 +9,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        user: action.payload,
       };
     case 'SIGNUP_SUCCESS':
       return {
         ...state,
         isAuthenticated: true,
+        user: action.payload,
       };
     default:
       return state;
