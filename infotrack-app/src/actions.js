@@ -1,3 +1,6 @@
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+
 export const login = (email, password) => {
   return (dispatch) => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -12,13 +15,13 @@ export const login = (email, password) => {
       return;
     }
 
-    dispatch({ type: 'LOGIN_SUCCESS' });
+    dispatch({ type: LOGIN_SUCCESS, payload: storedUser });
   };
 };
 
 export const signup = (formData) => {
   return (dispatch) => {
     localStorage.setItem('user', JSON.stringify(formData));
-    dispatch({ type: 'SIGNUP_SUCCESS' });
+    dispatch({ type: SIGNUP_SUCCESS, payload: formData });
   };
 };
