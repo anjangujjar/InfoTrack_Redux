@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions';
 import './Login.css';
 
-const Login = () => {
+const Login = 
+() => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
