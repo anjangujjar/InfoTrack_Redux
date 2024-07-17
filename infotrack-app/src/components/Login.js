@@ -1,73 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../actions';
-import './Login.css';
+import './Login.css';  // Import the CSS file
 
-const Login = 
-() => {
+const LoginComponent = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginResponse, setLoginResponse] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.isAuthenticated);
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(login(formData.email, formData.password));
-  };
+    
+    const loginData = {
+      username: username,
+      password: password
+    };
 
-  const handleSignup = () => {
-    navigate('/signup');
-  };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/home');
+    try {
+      const response = await axios.post('https://eldapipoc.infotracktelematics.com:5006/fms/v2/eld/driver/driverLogin', loginData);
+      setLoginResponse(response.data);
+      navigate('/home', { state: { loginResponse: response.data } });
+    } catch (error) {
+      console.error('Error logging in', error);
     }
-  }, [isAuthenticated, navigate]);
+  };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          autoComplete="username"
-          required
-        />
-        
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          autoComplete="current-password"
-          required
-        />
-        
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Username:</label>
+          <input 
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            required 
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
+        </div>
         <button type="submit">Login</button>
       </form>
-      <p><button onClick={handleSignup}>Signup</button></p>
     </div>
   );
 };
 
-export default Login;
+export default LoginComponent;
