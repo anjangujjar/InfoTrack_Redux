@@ -74,6 +74,10 @@ p button:hover {
   background-color: #fff;
   width: 100%;
 }
+.error {
+  color: red;
+  margin-top: 10px;
+}
 
 .response-container pre {
   white-space: pre-wrap;

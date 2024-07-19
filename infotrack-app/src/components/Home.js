@@ -1,40 +1,38 @@
 // HomePage.js
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import './Home.css';
 
 const HomePage = () => {
   const location = useLocation();
-  const { loginResponse } = location.state || {};
+  const { data, error } = location.state?.loginResponse || {};
 
-  if (!loginResponse) {
+  useEffect(() => {
+    if (data && data.accessToken) {
+      localStorage.setItem('accessToken', data.accessToken);
+    }
+  }, [data]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!data) {
     return <div>No login response available.</div>;
   }
 
-  const renderLoginResponse = () => {
+  if (!data.user) {
+    return <div>No user data available.</div>;
+  }
+
+  const renderUserData = () => {
     const rows = [];
-    for (const key in loginResponse) {
-      if (typeof loginResponse[key] === 'object') {
-        rows.push(
-          <tr key={key}>
-            <th colSpan="2">{key}</th>
-          </tr>
-        );
-        for (const subKey in loginResponse[key]) {
-          rows.push(
-            <tr key={`${key}-${subKey}`}>
-              <td>{subKey}</td>
-              <td>
-                <pre>{JSON.stringify(loginResponse[key][subKey], null, 2)}</pre>
-              </td>
-            </tr>
-          );
-        }
-      } else {
+    for (const key in data.user) {
+      if (Object.hasOwnProperty.call(data.user, key)) {
         rows.push(
           <tr key={key}>
             <td>{key}</td>
-            <td>{loginResponse[key]}</td>
+            <td>{data.user[key]}</td>
           </tr>
         );
       }
@@ -45,12 +43,15 @@ const HomePage = () => {
   return (
     <div className="homepage-container">
       <h2>Home Page</h2>
-      <h3>Login Response</h3>
+      <h3>User Data</h3>
       <table>
         <tbody>
-          {renderLoginResponse()}
+          {renderUserData()}
         </tbody>
       </table>
+      <Link to="/page">
+        <button>Next Page</button>
+      </Link>
     </div>
   );
 };
