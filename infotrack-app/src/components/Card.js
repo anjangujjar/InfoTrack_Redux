@@ -30,7 +30,22 @@ const Details = styled(Box)(({ theme }) => ({
   overflow: 'auto',
 }));
 
-const VehicleCard = ({ vehicle }) => {
+const highlightText = (text, query) => {
+  if (!query) return text;
+
+  const parts = text.toString().split(new RegExp(`(${query})`, 'gi'));
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <span key={index} className="highlight">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
+
+const VehicleCard = ({ vehicle, searchQuery }) => {
   return (
     <Box sx={{ minWidth: 275, margin: 2 }}>
       <HoverCard variant="outlined">
@@ -39,15 +54,15 @@ const VehicleCard = ({ vehicle }) => {
             Vehicle Information
           </Typography>
           <Typography variant="h5" component="div">
-            {vehicle.VehicleNo}
+            {highlightText(vehicle.VehicleNo, searchQuery)}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Vehicle ID: {vehicle.VehicleId}
+            Vehicle ID: {highlightText(vehicle.VehicleId, searchQuery)}
           </Typography>
           <Typography variant="body2">
-            Client ID: {vehicle.ClientID}
+            Client ID: {highlightText(vehicle.ClientID, searchQuery)}
             <br />
-            Unit ID: {vehicle.UnitID}
+            Unit ID: {highlightText(vehicle.UnitID, searchQuery)}
             <br />
             {/* Basic info shown initially */}
           </Typography>
@@ -56,31 +71,31 @@ const VehicleCard = ({ vehicle }) => {
           <Typography variant="body2">
             <strong>Vehicle Details:</strong>
             <br />
-            <strong>Vehicle ID:</strong> {vehicle.VehicleId}
+            <strong>Vehicle ID:</strong> {highlightText(vehicle.VehicleId, searchQuery)}
             <br />
-            <strong>Client ID:</strong> {vehicle.ClientID}
+            <strong>Client ID:</strong> {highlightText(vehicle.ClientID, searchQuery)}
             <br />
-            <strong>Unit ID:</strong> {vehicle.UnitID}
+            <strong>Unit ID:</strong> {highlightText(vehicle.UnitID, searchQuery)}
             <br />
-            <strong>Solution Type ID:</strong> {vehicle.SolutionTypeID}
+            <strong>Solution Type ID:</strong> {highlightText(vehicle.SolutionTypeID, searchQuery)}
             <br />
-            <strong>Vehicle Type ID:</strong> {vehicle.VehicleTypeID}
+            <strong>Vehicle Type ID:</strong> {highlightText(vehicle.VehicleTypeID, searchQuery)}
             <br />
-            <strong>Vehicle No:</strong> {vehicle.VehicleNo}
+            <strong>Vehicle No:</strong> {highlightText(vehicle.VehicleNo, searchQuery)}
             <br />
-            <strong>Vehicle Plate No:</strong> {vehicle.vehicleplateno}
+            <strong>Vehicle Plate No:</strong> {highlightText(vehicle.vehicleplateno, searchQuery)}
             <br />
-            <strong>Start Odometer:</strong> {vehicle.StartOdometer}
+            <strong>Start Odometer:</strong> {highlightText(vehicle.StartOdometer, searchQuery)}
             <br />
-            <strong>Vehicle Model:</strong> {vehicle.VehicleModel}
+            <strong>Vehicle Model:</strong> {highlightText(vehicle.VehicleModel, searchQuery)}
             <br />
-            <strong>Vehicle Make:</strong> {vehicle.VehicleMake}
+            <strong>Vehicle Make:</strong> {highlightText(vehicle.VehicleMake, searchQuery)}
             <br />
-            <strong>Driver ID:</strong> {vehicle.DriverId ?? 'N/A'}
+            <strong>Driver ID:</strong> {highlightText(vehicle.DriverId ?? 'N/A', searchQuery)}
             <br />
-            <strong>Co-Driver ID:</strong> {vehicle.CoDriverId ?? 'N/A'}
+            <strong>Co-Driver ID:</strong> {highlightText(vehicle.CoDriverId ?? 'N/A', searchQuery)}
             <br />
-            <strong>Driver Vehicle Ass ID:</strong> {vehicle.DriverVehicleAssId ?? 'N/A'}
+            <strong>Driver Vehicle Ass ID:</strong> {highlightText(vehicle.DriverVehicleAssId ?? 'N/A', searchQuery)}
           </Typography>
         </Details>
       </HoverCard>

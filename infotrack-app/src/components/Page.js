@@ -1,49 +1,21 @@
+// src/components/Page.js
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from './Card'; // Import your Card component
 import './Card.css';
+import { fetchVehicles } from '../actions/vehicleActions'; // Import your action
 
 const Page = () => {
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.vehicles);
+
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState({ property: 'VehicleId', order: 'asc' }); // Default sort
 
   useEffect(() => {
-    const fetchEldVehicles = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-
-        console.log('Using access token:', token);
-
-        const response = await fetch('https://eldapipoc.infotracktelematics.com:5006/fms/v2/eld/driver/eldVehicles', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            "vehicleId": 0,
-            "driverId": 0
-          })
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Failed to fetch data: ${errorText}`);
-        }
-
-        const responseData = await response.json();
-        console.log('Fetched data:', responseData);
-        setData(responseData.data.data || []); // Ensure data is set to an array
-
-      } catch (error) {
-        console.error('Error:', error);
-        setError(error.message);
-      }
-    };
-
-    fetchEldVehicles();
-  }, []);
+    dispatch(fetchVehicles());
+  }, [dispatch]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -53,11 +25,11 @@ const Page = () => {
     return <div>Loading...</div>;
   }
 
-  const filteredData = data.filter(vehicle =>
-    Object.values(vehicle).some(value =>
-      value && value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+  const filteredData = data.filter(vehicle => {
+    return Object.values(vehicle).some(value => {
+      return value !== null && value !== undefined && value.toString().toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  });
 
   const sortedData = filteredData.sort((a, b) => {
     let comparison = 0;
@@ -65,7 +37,6 @@ const Page = () => {
     const aValue = a[sortBy.property];
     const bValue = b[sortBy.property];
 
-    // Convert values to numbers if they are numeric
     const aNumeric = !isNaN(Number(aValue)) ? Number(aValue) : aValue;
     const bNumeric = !isNaN(Number(bValue)) ? Number(bValue) : bValue;
 
@@ -81,7 +52,7 @@ const Page = () => {
   return (
     <div>
       <header className="header">
-        <h2>Eld Vehicles Data</h2>
+        <h2>ELD Vehicles Data</h2>
       </header>
       <div className="input-container">
         <div className="input-box">

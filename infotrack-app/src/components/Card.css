@@ -86,4 +86,8 @@ body {
     margin: 0;
     font-size: 14px;
   }
+  /* Add this to your global CSS file or a relevant CSS module */
+.highlight {
+    background-color: rgb(158, 254, 158);
+  }
   
