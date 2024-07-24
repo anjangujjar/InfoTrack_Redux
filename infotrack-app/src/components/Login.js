@@ -44,7 +44,7 @@ const LoginComponent = () => {
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label>Username:</label>
+          <label>Username: </label>
           <input 
             type="text" 
             value={username} 
@@ -53,7 +53,7 @@ const LoginComponent = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Password: </label>
           <input 
             type="password" 
             value={password} 

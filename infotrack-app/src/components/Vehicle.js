@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from './Card'; // Import your Card component
 import './Card.css';
-import { fetchVehicles } from '../actions/vehicleActions'; // Import your action
+import { fetchVehicles } from './vehicleActions'; // Import your action
 
 const Page = () => {
   const dispatch = useDispatch();

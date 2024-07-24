@@ -2,8 +2,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import {thunk} from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import vehicleReducer from './reducers/vehicleReducer';
-import authReducer from './reducers/authReducer'; // Ensure this path is correct
+import vehicleReducer from './components/vehicleReducer';
+import authReducer from './components/authReducer'; // Ensure this path is correct
 
 const rootReducer = combineReducers({
   vehicles: vehicleReducer,

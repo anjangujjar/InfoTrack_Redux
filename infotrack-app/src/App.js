@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginComponent from './components/Login';
 import HomePage from './components/Home';
-import Page from './components/Page';
+import Page from './components/Vehicle';
 import LoginPage from './components/Login';
 
 const App = () => {
